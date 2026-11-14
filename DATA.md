@@ -37,11 +37,7 @@ Used to build horizon masks via ray-marching over 360 azimuths.
 
 | Product | Purpose | Version | URL | SHA-256 | License |
 |---------|---------|---------|-----|---------|---------|
-| SLDEM2015 | High-resolution lunar DEM (reference radius 1737.4 km) | — | https://pgda.gsfc.nasa.gov/products/54 | TODO(verify) | Public domain (NASA) |
-| LOLA GDR | Gridded Data Record, terrain shape map | — | https://ode.rsl.wustl.edu/moon/pagehelp/Content/Missions_Instruments/LRO/LOLA/GDR/Intro.htm | TODO(verify) | Public domain (NASA) |
 | LOLA GDR DEM (GDRDEM), Terrain Shape Map — south pole | Polar terrain for south pole horizon masks | PDS3, DATA_SET_ID `LRO-L-LOLA-4-GDR-V1.0` | https://pds-geosciences.wustl.edu/lro/lro-l-lola-3-rdr-v1/lrolol_1xxx/data/lola_gdr/polar/img/LDEM_80S_20M.IMG | `DB44C3B2444ACFF1AF528301C8A6988934B490249ACEFF0AC55668BDF3EAB365` | Public domain (NASA) |
-| LOLA GDR DEM — nearby southern polar products | `LDEM_85S_10M` (85°S, 10 m), `LDEM_75S_30M` (75°S, 30 m), `LDEM_60S_60M`, `LDEM_45S_100M`, `LDEM_87S_5M` | PDS3, DATA_SET_ID `LRO-L-LOLA-4-GDR-V1.0` | https://pds-geosciences.wustl.edu/lro/lro-l-lola-3-rdr-v1/lrolol_1xxx/data/lola_gdr/polar/img/ | TODO(verify) | Public domain (NASA) |
-| LOLA GDR DEM — adjusted large-area TIF (Barker et al. 2023) | Adjusted DEM, south pole (80–90°S) | — | https://pgda.gsfc.nasa.gov/data/LOLA_20mpp/LDEM_80S_20MPP_ADJ.TIF | TODO(verify) | Public domain (NASA) |
 
 > **South-pole LOLA product (verified).** The exact LOLA product covering the south pole is the **LOLA Gridded Data Record – Terrain Shape Map (GDRDEM), product `LDEM_80S_20M`** (PDS3; DATA_SET_ID `LRO-L-LOLA-4-GDR-V1.0`; producer LRO_LOLA_TEAM, NASA Goddard; source paper: Barker et al. 2023, *Planet. Sci. J.* 4, 183, https://doi.org/10.3847/PSJ/acf3e1; data DOI: https://doi.org/10.60903/gsfcpgda-lola-spole; product page: https://pgda.gsfc.nasa.gov/products/90).
 >
@@ -51,18 +47,18 @@ Used to build horizon masks via ray-marching over 360 azimuths.
 > - **File format:** PDS3 `UNCOMPRESSED_FILE` (fixed-length binary; `IMAGE` = HEIGHT, LSB_INTEGER, 16 bits, UNIT = METER; `^IMAGE_MAP_PROJECTION`, `MAP_PROJECTION_TYPE` = "POLAR STEREOGRAPHIC", `^DATA_SET_MAP_PROJECTION` = "DSMAP_POLAR.CAT") + detached label; also `_float` (floating-point) and `_jp2` (JPEG2000) variants. The Barker et al. (2023) adjusted products (`LDEM_80S_20MPP_ADJ.TIF`) are Cloud Optimized GeoTIFFs with south polar stereographic X/Y in meters, MOON_ME frame of DE421, LDEM height in meters.
 > - **Download URL:** `https://pds-geosciences.wustl.edu/lro/lro-l-lola-3-rdr-v1/lrolol_1xxx/data/lola_gdr/polar/img/LDEM_80S_20M.IMG` (1,848,320,000 bytes; verified HTTP 200; SHA-256 `DB44C3B2444ACFF1AF528301C8A6988934B490249ACEFF0AC55668BDF3EAB365`); detached label `ldem_80s_20m.lbl` (SHA-256 `0793611CDE045E6F8EEC1365B2500084522FDC6D515EC30B5AB2427DE62A6624`) from the same directory. Adjusted TIF: `https://pgda.gsfc.nasa.gov/data/LOLA_20mpp/LDEM_80S_20MPP_ADJ.TIF`.
 
-> **NOTE:** SLDEM2015 spans only ±60° latitude — it does **not** cover the lunar poles and is useless for south pole site assessment. Use LOLA polar DEM products (80°S and nearby) for south pole terrain. LOLA GDR height values are scaled and offset — read the product label before converting. Record the scale/offset here.
+> **NOTE:** LOLA GDR height values are scaled and offset — read the product label before converting. Record the scale/offset here. (SLDEM2015 was considered but spans only ±60° latitude and does not cover the lunar poles; it was removed from the product table.)
 
 ## Horizons validation fixtures (JPL)
 
-Committed snapshots of Horizons API responses used for golden tests. Not shipped with the app — used only in CI/tests.
+Committed snapshots of Horizons API responses used for golden tests. Not shipped with the app — used only in CI/tests. Fetched via the programmatic API (`https://ssd.jpl.nasa.gov/api/horizons.api`, `format=text` ASCII ephemeris tables, `TIME_DIGITS=FRACSEC`, `CSV_FORMAT=YES`) with observer-site topocentric queries (`EPHEM_TYPE=OBSERVER`); each response ends with the `$$EOE` end-of-epoch marker.
 
 | Fixture | Site | Date range | Query URL | SHA-256 |
 |---------|------|------------|-----------|---------|
-| `apollo11_sun_2026.json` | Apollo 11 | 2026-11-13 to 2026-11-14 | TODO(verify): record full URL | TODO(verify) |
-| `apollo11_earth_2026.json` | Apollo 11 | 2026-11-13 to 2026-11-14 | TODO(verify) | TODO(verify) |
-| `south_pole_sun_2026.json` | South polar site | 2026-11-13 to 2026-11-14 | TODO(verify) | TODO(verify) |
-| `south_pole_earth_2026.json` | South polar site | 2026-11-13 to 2026-11-14 | TODO(verify) | TODO(verify) |
+| `apollo11_sun_2026.json` | Apollo 11 | 2026-11-13 to 2026-11-14 | https://ssd.jpl.nasa.gov/api/horizons.api?COMMAND=10&CENTER=301&COORD_TYPE=GEODETIC&EPHEM_TYPE=OBSERVER&QUANTITIES=4&SITE_COORD=23.45,0.674,0&START_TIME=2026-11-13%2000:00:00&STOP_TIME=2026-11-14%2000:00:00&STEP_SIZE=1m&TIME_DIGITS=FRACSEC&CSV_FORMAT=YES&format=text | `7F105A5697779C8ACAFAB0599EE781D0B720930E8A0E50B2E06C9FA3A41187DA` |
+| `apollo11_earth_2026.json` | Apollo 11 | 2026-11-13 to 2026-11-14 | https://ssd.jpl.nasa.gov/api/horizons.api?COMMAND=399&CENTER=301&COORD_TYPE=GEODETIC&EPHEM_TYPE=OBSERVER&QUANTITIES=4&SITE_COORD=23.45,0.674,0&START_TIME=2026-11-13%2000:00:00&STOP_TIME=2026-11-14%2000:00:00&STEP_SIZE=1m&TIME_DIGITS=FRACSEC&CSV_FORMAT=YES&format=text | `319BC4762B84C2B5A2F5DC331BAE8800D54EFD180B72E4D287405E893A674317` |
+| `south_pole_sun_2026.json` | South polar site | 2026-11-13 to 2026-11-14 | https://ssd.jpl.nasa.gov/api/horizons.api?COMMAND=10&CENTER=301&COORD_TYPE=GEODETIC&EPHEM_TYPE=OBSERVER&QUANTITIES=4&SITE_COORD=0,-89.5,0&START_TIME=2026-11-13%2000:00:00&STOP_TIME=2026-11-14%2000:00:00&STEP_SIZE=1m&TIME_DIGITS=FRACSEC&CSV_FORMAT=YES&format=text | `CBEE59A658FB3B4B9DEF4A17A1E41BAD4C226F4E0DC8D83057CF514FB5F63C43` |
+| `south_pole_earth_2026.json` | South polar site | 2026-11-13 to 2026-11-14 | https://ssd.jpl.nasa.gov/api/horizons.api?COMMAND=399&CENTER=301&COORD_TYPE=GEODETIC&EPHEM_TYPE=OBSERVER&QUANTITIES=4&SITE_COORD=0,-89.5,0&START_TIME=2026-11-13%2000:00:00&STOP_TIME=2026-11-14%2000:00:00&STEP_SIZE=1m&TIME_DIGITS=FRACSEC&CSV_FORMAT=YES&format=text | `319BC4762B84C2B5A2F5DC331BAE8800D54EFD180B72E4D287405E893A674317` |
 
 > Each fixture must record the full Horizons API query parameters so the test can be reproduced independently.
 
