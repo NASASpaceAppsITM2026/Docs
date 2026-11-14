@@ -48,14 +48,13 @@ uv run pytest
 uv run ruff check pipeline tests scripts
 uv run ruff format --check pipeline tests scripts
 
-# TypeScript (pnpm workspaces)
+# TypeScript (pnpm workspaces, app repo)
 pnpm install
 pnpm -r typecheck
+pnpm -r lint
 pnpm -r test
 pnpm --filter web dev
 pnpm --filter web build
-
-# Validation against cached Horizons fixtures
 pnpm --filter core test:golden
 ```
 
