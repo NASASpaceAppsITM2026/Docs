@@ -44,7 +44,9 @@ Keep this section accurate. When you add or change tooling, update these lines i
 ```
 # Python pipeline (uv)
 uv sync
-uv run pytest pipeline
+uv run pytest
+uv run ruff check pipeline tests scripts
+uv run ruff format --check pipeline tests scripts
 
 # TypeScript (pnpm workspaces)
 pnpm install
