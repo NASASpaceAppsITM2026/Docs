@@ -116,30 +116,44 @@ difficult. Treat untested claims as hypotheses.
 
 ## Latest results
 
-> **No validation run yet.** This section is populated after the first golden
-> test pass (Day 1 afternoon of the hackathon sprint).
+Golden tests pass against JPL Horizons fixtures across 6 site/body combinations (145 samples each, every 10th sample over a 24-hour window). Tolerance: < 0.01° on angular separation, |ΔAZ|, and |ΔEL|.
 
-| Test | Site | Date | Our AZ/EL | Horizons AZ/EL | ΔAZ | ΔEL | Pass? |
-|------|------|------|-----------|----------------|-----|-----|-------|
-| (example) | Apollo 11 | 2026-11-13 12:00 | — | — | — | — | — |
-| (example) | South pole (−89.5°) | 2026-11-13 12:00 | — | — | — | — | — |
-| (example) | South pole (−89.5°) | 2026-06-21 06:00 | — | — | — | — | — |
+| Fixture | Site | Target | Max angular separation | Max |ΔAZ| | Max |ΔEL| | Pass? |
+|---------|------|--------|----------------------|--------|--------|-------|
+| apollo11_Sun_2026 | Apollo 11 (0.674°N, 23.45°E) | Sun | 0.000001° | 0.000001° | 0.000001° | Yes |
+| apollo11_Earth_2026 | Apollo 11 (0.674°N, 23.45°E) | Earth | 0.000011° | 0.000001° | 0.000010° | Yes |
+| south_pole_Sun_2026 | South Pole 89.5S (0°E) | Sun | 0.000001° | 0.000000° | 0.000000° | Yes |
+| south_pole_Earth_2026 | South Pole 89.5S (0°E) | Earth | 0.000020° | 0.000001° | 0.000019° | Yes |
+| south_pole_summer_Sun_2026 | South Pole 89.5S (180°E) | Sun | 0.000001° | 0.000001° | 0.000000° | Yes |
+| south_pole_summer_Earth_2026 | South Pole 89.5S (180°E) | Earth | 0.000025° | 0.000001° | 0.000025° | Yes |
+
+**Worst case across all fixtures:** max angular separation 0.000025°, max |ΔAZ| 0.000001°, max |ΔEL| 0.000025°. All within 0.01° tolerance with >2 orders of magnitude margin.
+
+Ephemeris fit artifact (`ephemeris_v1.json`, built from SPICE kernels in RawData/):
+- Window: 2026-01-01 to 2027-01-01 (TDB)
+- Fit error measured vs SPICE: 1.478779e-06° (target: well under 0.001°)
+- 366 segments (48-hour segments), 2 body pairs (MOON_TO_SUN, MOON_TO_EARTH)
+- Chebyshev order 10, MOON_ME frame, apparent (LT+S) aberration correction
 
 ### Error budget
 
 | Component | Target error | Measured error |
 |-----------|-------------|----------------|
-| Ephemeris direction | < 0.001° | — |
-| AZ/EL vs Horizons | < 0.01° | — |
+| Ephemeris direction (Chebyshev fit vs SPICE) | < 0.001° | 1.478779e-06° |
+| AZ/EL vs Horizons (golden test) | < 0.01° | 0.000025° |
 | Disc angular radius | < 0.001° | — |
 
 ## Data version validated against
 
 | Dataset | Version | Checksum |
 |---------|---------|----------|
-| SPICE kernels | — | — |
-| LOLA DEM | — | — |
+| SPICE kernels (naif0012.tls, de440.bsp, moon_pa_de440_200625.bpc, moon_de440_250416.tf) | Pinned per docs/DATA.md | SHA-256 verified at build time |
+| LOLA DEM (ldem_80s_20m.img) | LDEM_80S_20M v1.0 | DB44C3B2444ACFF1AF528301C8A6988934B490249ACEFF0AC55668BDF3EAB365 |
 | Horizons API | signature.version = 1.0 (doc v1.3) | — |
+
+**Artifacts produced:**
+- `ephemeris_v1.json` — SHA-256: 9a3aa1496ae8683b888fa056ce7af1081816c4da5e28334d9eeb905543851312 (release zip 1.0.0: 6a0f92dc61b45abe85166ba97c2d29abfbf166f1bf3dc38ec83b7760e97d722a)
+- `horizon_masks_v1.json` — SHA-256: 549c17c53001fcdd71f420c8a1f8e146b6ad8669cba5f2d02b939f268848ce9c
 
 ## How to add a validation run
 
