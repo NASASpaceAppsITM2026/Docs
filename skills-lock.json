@@ -1,0 +1,47 @@
+{
+  "version": 1,
+  "skills": {
+    "astropy": {
+      "source": "K-Dense-AI/scientific-agent-skills",
+      "sourceType": "github",
+      "skillPath": "skills/astropy/SKILL.md",
+      "computedHash": "31fa1ecfead42aced9344f5276b5f174f772de515f57fae72ff328c729a86dfd"
+    },
+    "database-lookup": {
+      "source": "K-Dense-AI/scientific-agent-skills",
+      "sourceType": "github",
+      "skillPath": "skills/database-lookup/SKILL.md",
+      "computedHash": "064b79c25303723f10bb520f303caaa7d4323f4253eb21e8c7e2002dbbfcfa76"
+    },
+    "experimental-design": {
+      "source": "K-Dense-AI/scientific-agent-skills",
+      "sourceType": "github",
+      "skillPath": "skills/experimental-design/SKILL.md",
+      "computedHash": "7b6648487feb11d66a0c70138fde69cc623226e957be2a6ebd69e73eb1c25fde"
+    },
+    "geomaster": {
+      "source": "K-Dense-AI/scientific-agent-skills",
+      "sourceType": "github",
+      "skillPath": "skills/geomaster/SKILL.md",
+      "computedHash": "fb23fbba8dff12fd10cc8d4faa617314c110b6e3934c719a999f74488ee580c9"
+    },
+    "geopandas": {
+      "source": "K-Dense-AI/scientific-agent-skills",
+      "sourceType": "github",
+      "skillPath": "skills/geopandas/SKILL.md",
+      "computedHash": "a33b24dbed265c9ab57a041b796ab3e389d463021acac24217fdab5949b61530"
+    },
+    "scientific-visualization": {
+      "source": "K-Dense-AI/scientific-agent-skills",
+      "sourceType": "github",
+      "skillPath": "skills/scientific-visualization/SKILL.md",
+      "computedHash": "69271a084a272470275da16ab56edfe95a40aa9a42e052cd73503ed94d98c655"
+    },
+    "uncertainty-and-units": {
+      "source": "K-Dense-AI/scientific-agent-skills",
+      "sourceType": "github",
+      "skillPath": "skills/uncertainty-and-units/SKILL.md",
+      "computedHash": "5cf902b23dad33c0f28a25f77ea3f1f782b5daa77132bab136ad971572b15782"
+    }
+  }
+}
