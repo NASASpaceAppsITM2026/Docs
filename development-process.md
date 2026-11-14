@@ -58,25 +58,26 @@
 |------|------|--------|
 | React + Vite + Tailwind v4 scaffold | 1 hr | `packages/web` dev server runs |
 | Deep-space palette from `DESIGN.md` | 1 hr | Colors applied |
-| Map click → lat/lon → compute → display AZ/EL + power + DTE | 4 hrs | Working single-site page |
+| Moon-centered 3D opening scene with Moon, Earth, Sun, and selected site | 4 hrs | Main app view, wired to mocked or validated core results |
+| Secondary map, coordinate entry, and saved-site selector | 2 hrs | Precise site selection stays synchronized with the 3D marker |
 | URL-serializable state (shareable link) | 1 hr | Copy-paste URL reproduces scenario |
 | "Verify in Horizons" action (generates exact query) | 1 hr | Button that outputs query string |
 | Snap clicks to DEM grid; display effective resolution | 1 hr | Honest uncertainty in UI |
 
-**End-of-morning check:** User can click a lunar site, see Sun/Earth position + power + DTE, and share the URL. All client-side, offline.
+**End-of-morning check:** The Moon is the main view, Earth and Sun provide site/date context, and users can select a site from the secondary map or coordinate controls. Core results and the scenario URL work offline.
 
-### Afternoon (hours 32–40): Polish + 3D + presentation
+### Afternoon (hours 32–40): Planning features + visual refinement
 
 | Task | Time | Output |
 |------|------|--------|
 | Slip-window finder: candidate sites and dates against visible user limits | 3 hrs | Results show pass/fail/unknown and why |
 | Timeline of sunlit/Earth-visible windows with countdowns | 1 hr | Chart SVG/Canvas |
 | Side-by-side comparison of 2 scenarios | 1 hr | Comparison view |
-| Three.js + R3F scene: Moon sphere, Sun/Earth discs, terrain silhouette | 1 hr | Interactive 3D view; cut first if time is short |
+| Refine the 3D scene: overview/site camera, terrain horizon, celestial discs | 1 hr | Keep the 3D scene primary; trim decorative detail if time is short |
 | Accessibility: keyboard nav, chart text alternatives, colorblind-safe | 1 hr | Passes Floor gate |
 | Design review gates (Floor/Reflex/Finish) | 1 hr | No AI-slop patterns |
 
-**End-of-afternoon check:** App is demoable end-to-end: click site → see 2D metrics + 3D scene → compare scenarios → share URL. Offline-first confirmed (airplane-mode test).
+**End-of-afternoon check:** App is demoable end-to-end: select a site → inspect the Moon-centered 3D scene and metrics → compare scenarios → share URL. Offline core confirmed (airplane-mode test).
 
 ### Evening (hours 40–48): Submission
 
@@ -98,6 +99,7 @@
 | In scope | Later or stretch scope |
 |----------|------------------------|
 | Validated single-site Sun/Earth geometry and terrain-aware metrics | Full south-polar site catalog |
+| Moon-centered 3D scene with Moon, Earth, Sun, selected site, and a site-level horizon view | High-detail custom lander model or exact-scale three-body distances |
 | Slip-window finder across a bounded set of candidate sites and dates, using visible user limits | Landing-area robustness across a user-defined radius or landing ellipse; only after the point results are validated |
 | Power proxy, configurable direct-to-Earth visibility, and eclipse disc-overlap | AI assistant and live multi-person workspace |
 | Horizon mask from precomputed LOLA DEM | User accounts or a hosted collaboration backend |
@@ -128,7 +130,7 @@ AI provide scientific calculations.
 
 ## If we fall behind (triage order)
 
-1. **Cut 3D scene and decorative polish** first — keep the decision workflow clear
+1. **Cut decorative 3D detail and polish** first; preserve the Moon-centered scene as the primary interface
 2. **Cut landing-area robustness** if its terrain sampling or landing distribution cannot be justified
 3. **Reduce the candidate-site set or date range** rather than hide how the slip finder reaches its results
 4. **Never cut:** validation against Horizons, the bounded slip-window finder, offline core use, or honest uncertainty

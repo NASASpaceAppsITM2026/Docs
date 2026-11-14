@@ -8,12 +8,31 @@ The app shows sunlight and Earth communication opportunities at a selected site 
 
 ## What users do
 
-1. Select a site on the map, enter coordinates, or choose a saved site.
+1. Start in the 3D lunar scene, then select a site using the map, coordinates, or saved-site list.
 2. Set the planned date and the conditions the mission needs, such as enough sunlight or a limit on the longest dark period.
 3. Check the current plan, explore delayed dates, or compare alternatives.
 4. Share a link or, when online collaboration is enabled, invite teammates to work in the same scenario.
 
 The Sun/Earth geometry and terrain calculations remain deterministic and validated. The interface and any AI assistant explain or organize those calculations; they do not replace them.
+
+## Visual direction
+
+The Moon is the main subject of the app and the first visual focus. Open on a
+large, interactive lunar model with the selected landing site visible. Show
+Earth and the Sun as contextual 3D bodies, with their directions and apparent
+disc sizes driven by the selected site and date.
+
+Offer two related views using the same scene: a Moon overview for spatial
+context, and a site-level view showing Earth and Sun against the local terrain
+horizon. Compress distances in the overview so all three bodies fit on screen;
+label it “not to scale.” The site-level view must communicate the computed
+azimuth, elevation, terrain obstruction, and disc visibility rather than
+implying that the composition is an exact-scale solar-system model.
+
+Keep the map available for precise site selection, but make it a secondary
+panel or view. Date controls, sunlight/communication timeline, comparison
+results, and constraints should support and explain the 3D scene without
+competing with the Moon for visual priority.
 
 ## Features, in order
 

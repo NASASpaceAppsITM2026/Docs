@@ -37,7 +37,8 @@ Readable on a projector in a lit room and on mobile portrait.
 
 - Use a 4px grid (4, 8, 12, 16, 24, 32, 48, 64)
 - Panels: surface background (`#1d1b22`), border (`#27272a`), rounded corners
-- Map area: full-bleed background (`#0f0e13`), no border
+- 3D lunar scene: primary, unframed viewport; the Moon is the dominant object
+- Map: secondary site-selection panel or view, visually subordinate to the 3D scene
 - Sidebar/inset panels: surface background with subtle border
 
 ## Components
@@ -48,9 +49,15 @@ Readable on a projector in a lit room and on mobile portrait.
 - **Inputs:** surface background, border (`#27272a`), primary text,
   accent focus ring (`#f59e0b`)
 - **Badges/tags:** surface background, muted text, small rounded padding
-- **Charts:** accent for solar, info blue (`#3b82f6`) for Earth,
-  muted for terrain silhouette; always include text alternatives
-  muted for terrain silhouette; always include text alternatives
+- **Celestial colors:** use the solar accent for the Sun and info blue for Earth.
+- **3D scene:** Moon is the primary subject; Earth and Sun are contextual bodies
+  whose apparent direction and disc size reflect the selected site and date.
+- **Overview scale:** compress distances only when necessary to show all three
+  bodies; clearly label the scene “not to scale.”
+- **Site selection:** the map remains available as a secondary control and
+  synchronizes with the selected-site marker in the 3D scene.
+- **Charts:** use accent for solar, info blue (`#3b82f6`) for Earth, and muted
+  terrain colors; always include text alternatives.
 - **Decision results:** label outcomes as meeting, missing, or unknown; never
   rely on color alone to communicate a result or risk.
 - **AI proposals:** show the interpreted request and proposed scenario changes

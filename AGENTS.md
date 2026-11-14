@@ -5,7 +5,7 @@ Direct instructions from the human in chat override this file. If a rule here co
 
 ## 1. Project in one paragraph
 
-A web app that lets mission planners, educators and the public evaluate lunar landing sites (focus: south pole) for a given date: where the Sun and Earth are relative to the local horizon (terrain included), how much power is available, when direct-to-Earth communication is possible, and what happens if the date or site changes. The user clicks a lunar map, types coordinates, or picks a known site, and gets results **instantly and fully client-side**. Built for the 2026 NASA Space Apps Challenge "Lunar Landing Site Navigator". The challenge also references NASA Moon Trek (3D terrain/horizon visualization reference) and the CSA Moon Exploration portal (mission/Artemis context); these are secondary sources, not part of the core ephemeris/terrain computation.
+A web app that lets mission planners, educators and the public evaluate lunar landing sites (focus: south pole) for a given date: where the Sun and Earth are relative to the local horizon (terrain included), how much power is available, when direct-to-Earth communication is possible, and what happens if the date or site changes. The app opens on a Moon-centered 3D scene, with Earth and the Sun providing context; users select a site in the secondary map, enter coordinates, or pick a known site, and get results **instantly and fully client-side**. Built for the 2026 NASA Space Apps Challenge "Lunar Landing Site Navigator". The challenge also references NASA Moon Trek (3D terrain/horizon visualization reference) and the CSA Moon Exploration portal (mission/Artemis context); these are secondary sources, not part of the core ephemeris/terrain computation.
 
 Judging priorities, in order: **scientific validity**, relevance to mission planning (launch-slip decisions), creativity, presentation. When in doubt, choose correctness over polish.
 
@@ -149,9 +149,12 @@ A science change is not complete without validation evidence.
 
 ## 8. UI and UX principles
 
-- Map-first, click-to-compute. Three inputs stay in sync: map click, typed lat/lon or site name, curated site list.
+- **Moon-first, 3D-led.** The Moon is the main visual subject and occupies the primary viewport. Include 3D representations of the Moon, Earth, and Sun to give spatial context. The Earth and Sun support the lunar story; do not let them visually compete with the Moon.
+- **Keep the science legible in 3D.** Scene direction and apparent disc size should come from the selected site's computed geometry. Distances may be compressed so all three bodies fit in view; label the scene as not to scale and do not imply that visual scale is scientific data.
+- **Map as a precision tool, not the opening view.** Keep map click, typed coordinates/site search, and curated sites in sync, but let users open the map as a secondary site-selection view or panel from the 3D workspace.
 - A result appears within a fraction of a second. Show an instant approximate answer, then refine in a worker with a visible "refining" state. Never block the UI thread.
 - Signature visuals: Sun/Earth azimuth-elevation plot with the terrain silhouette; a timeline of sunlit and Earth-visible windows with countdowns; side-by-side comparison of 2–4 scenarios with a clear verdict.
+- Signature visuals: a dominant Moon-centered 3D scene with Earth and Sun context; a site-level view of celestial discs against the terrain horizon; a timeline of sunlight and Earth communication windows; and side-by-side scenario comparisons with clear results.
 - The slip-window finder (candidate sites × dates checked against visible user constraints) and landing-area robustness check (how results vary across an explicit landing area) are the main decision features; protect their validation and make failed or indeterminate results understandable.
 - Shareable links are the first collaboration feature. Live multi-person workspaces and AI operation are optional online layers and must not be prerequisites for core use.
 - AI can translate requests into visible, reviewable app actions and explain returned results. It must not supply or alter computed science values. Ask before adding an external or paid provider.

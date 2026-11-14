@@ -134,7 +134,7 @@ Start W1 to W4 together. Start W5 after the first validation gate.
 | W2 Core ephemeris | app | `packages/core/src/ephemeris/` | `skyAt` evaluates the fits for any site and time in the window; tested first against a synthetic fit, then the real one |
 | W3 Validation | app | `scripts/fetch_horizons.*`, `tests/fixtures/horizons/`, `packages/core/test/golden/` | Fixtures committed with full query URLs (`CENTER='coord@301'`, quantities 1 and 4, `CSV_FORMAT=YES`, `TIME_DIGITS=FRACSEC`); golden test compares by angular separation and wrap-aware azimuth within 0.01° |
 | W4 Terrain | pipeline (+ core reader in app) | `pipeline/terrain/`, `packages/core/src/terrain/` | Horizon masks for candidate sites with exact sphere geometry, observer height, stated range and resolution; synthetic-terrain tests; needs the verified polar DEM product |
-| W4b Web shell | app | `packages/web/` | Map, coordinate entry, date input and result card using mocked core; URL-serializable `ScenarioState`; accessibility basics |
+| W4b Web shell | app | `packages/web/` | Moon-centered 3D scene with Moon, Earth, Sun, and selected site; secondary map/coordinate/site selector; date controls and result view using mocked core; URL-serializable `ScenarioState`; accessibility basics |
 | W5 Planning | app | `packages/core/src/planning/` | `slipWindowFinder` with meets/misses/unknown and reasons, bounded candidates and dates, boundary and tie tests |
 
 Dependencies: W3 can start immediately, because its fixtures do not depend on W1 or W2. W2 starts against a synthetic fit file that follows the contract. W4b uses mocks.
@@ -187,4 +187,4 @@ After the gate: slip-window finder (W5), timeline and comparison views, shareabl
 - One owned path set per agent; reviews and merges are yours.
 - Do not start an agent on a task whose inputs are unverified (kernels, DEM). Run Prompt R first.
 - If agents disagree about a science convention, `AGENTS.md` section 5 wins; if it is silent, ask the human.
-- Keep the sprint's triage order: cut 3D and polish first; never cut Horizons validation, offline core use, or honest uncertainty.
+- Keep the Moon-centered 3D scene as the primary interface; cut decorative model detail before demoting or removing it. Never cut Horizons validation, offline core use, or honest uncertainty.

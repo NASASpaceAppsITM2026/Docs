@@ -39,7 +39,7 @@ patterns specific to this project.
 
 - Building or modifying UI components for the landing site navigator
 - Designing the state model and URL serialization
-- Implementing the map-first, click-to-compute interaction
+- Implementing the Moon-first 3D scene and map-supported site selection
 - Creating the Sun/Earth AZ-EL plot with terrain silhouette
 - Implementing accessibility (colorblind-safe, keyboard nav, chart alternatives)
 - Encoding shareable link state
@@ -144,10 +144,14 @@ reproduce the exact scenario.
 
 ## Interaction model
 
-**Map-first, click-to-compute.** Three inputs stay in sync:
-1. Map click
+**3D-first, Moon-centered.** Open directly into an interactive Moon scene with the selected site and the Sun/Earth context visible. The 3D scene is the primary way to understand the mission geometry.
+
+**Map-supported site selection.** Keep these inputs synchronized with the 3D scene:
+1. Map click in a secondary map view or panel
 2. Typed lat/lon or site name
 3. Curated site list
+
+Selecting a site from any input updates the marker, date-dependent scene, timeline, and metrics. The map is a precision tool the user can open when needed, not the initial visual focus.
 
 **Performance:** A result appears within a fraction of a second. Show an
 instant approximate answer, then refine in a Web Worker with a visible
@@ -188,13 +192,16 @@ as landing probabilities without a justified probability model.
 
 ## 3D visualization (Web)
 
-The app uses **Three.js + React Three Fiber (`@react-three/fiber`)** with
-`@react-three/drei` for helpful abstractions, running in React + Vite.
+The app opens on a **Moon-centered 3D workspace** built with **Three.js +
+React Three Fiber (`@react-three/fiber`)** and `@react-three/drei`, running in
+React + Vite. Model all three bodies, with the Moon largest and visually
+primary; Earth and Sun provide context for the selected site and date.
 
 **Why Three.js / R3F (not CesiumJS for the core app):**
 - QuickMap already provides Cesium-based 3D as a reference/external source —
-  this app's 3D is for stylized, interactive visualization of Sun/Earth
-  position, terrain silhouette, and horizon mask, not geospatial precision
+  this app's 3D presents the Moon as the primary subject and connects the
+  Sun/Earth context to the planning workflow, rather than replacing precise
+  geospatial analysis
 - Three.js + R3F integrates cleanly with React and Vite, and is easier to
   extend with custom 3D models (lunar lander, terrain panels, Sun/Earth discs)
 - Lighter bundle than CesiumJS for a client-side-only, offline-first static
@@ -208,15 +215,19 @@ The app uses **Three.js + React Three Fiber (`@react-three/fiber`)** with
   be added as a separate view alongside the Three.js scene
 
 **3D models:**
-- Build custom low-poly lunar terrain, lander, and celestial bodies in-house
-  (Blender or similar), export as GLTF/GLB
-- Keep models low-poly and texture-baked for performance on mobile and
-  projectors
-- Use `@react-three/drei`'s `<UseTexture>` and `<OrbitControls>` for scene
-  interaction
-- The Moon is a sphere with a terrain displacement map or a stylized
-  low-poly surface; Sun and Earth are emissive spheres with angular radii
-  computed from true distance (see `celestial-ephemeris` skill)
+- Use locally bundled, appropriately licensed surface assets for the Moon and
+  Earth, plus a clear Sun model/light source. Keep the Moon's texture and
+  selected landing area visually prominent.
+- Provide a Moon overview and a site-level camera. In the overview, compress
+  body distances so all three bodies can be seen; label that view “not to
+  scale.” In the site-level view, use computed Sun/Earth azimuth, elevation,
+  and apparent angular radii against the terrain horizon.
+- Keep models and textures optimized for mobile and projector displays; do not
+  fetch them from remote servers at runtime.
+- Use OrbitControls for camera navigation; textures must be locally bundled.
+- The scene's scientific directions and apparent disc sizes come from the
+  deterministic core. If composition changes distances or sizes, disclose it
+  and never use the illustration as a substitute for computed values.
 
 **Performance:**
 - Render the 3D scene in a Web Worker-isolated canvas when possible, or at
