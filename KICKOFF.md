@@ -103,7 +103,7 @@ Finish with a report: files created, commands run and their results, open questi
 
 ```text
 Read AGENTS.md, docs/product-direction.md, docs/development-process.md and docs/data-contracts.md.
-Goal: scaffold lunar-navigator-app. Do NOT implement science, UI features, AI or collaboration code.
+Goal: scaffold lunar-navigator-app. Do NOT implement science or UI features yet.
 
 Tasks:
 1. pnpm workspace with packages/core and packages/web, tests/fixtures/, scripts/.
@@ -178,7 +178,7 @@ assumptions made, and any science or validation result with numbers. Be honest a
 - `docs/VALIDATION.md` has real numbers (ΔAZ, ΔEL, fit error).
 - If agreement misses 0.01°, stop adding features and find the cause (frame, time scale, light-time, aberration, site definition). Do not loosen the tolerance.
 
-After the gate: slip-window finder (W5), timeline and comparison views, shareable links. Landing-area robustness, the optional AI assistant and live collaboration come only after those, as described in `docs/product-direction.md`.
+After the gate: slip-window finder (W5), timeline and comparison views, shareable links, AI chat panel. Landing-area robustness comes after those, as described in `docs/product-direction.md`.
 
 ---
 

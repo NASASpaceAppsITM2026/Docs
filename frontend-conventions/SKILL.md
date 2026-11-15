@@ -14,7 +14,7 @@ work_mode: ["application-development", "ui-ux"]
 compatibility:
   javascript: "ES2020+"
   packages: ["react", "vite", "typescript", "tailwindcss", "@tailwindcss/vite", "three", "@react-three/fiber", "@react-three/drei"]
-  network: "optional online AI/collaboration; offline-capable science core"
+  network: "optional online AI provider; offline-capable science core"
 author: "K-Dense Inc. / project-specific"
 license: "MIT"
 references:
@@ -43,17 +43,17 @@ patterns specific to this project.
 - Creating the Sun/Earth AZ-EL plot with terrain silhouette
 - Implementing accessibility (colorblind-safe, keyboard nav, chart alternatives)
 - Encoding shareable link state
-- Enforcing the offline-capable science core and optional online states
+- Enforcing the offline-capable science core and optional AI provider state
 - Running design review gates before shipping UI changes
 
 ## Architecture constraint
 
 **Offline-capable science core.** The deployed app is static files. Core
 calculations use precomputed ephemeris and terrain assets; they must not
-depend on runtime calls to Horizons, NASA, QuickMap, or an AI provider. A
-network failure must not block core site/date analysis. If AI or live
-collaboration is later enabled, make the online state explicit and keep those
-services optional.
+depend on runtime calls to Horizons, NASA, or QuickMap. A network failure
+must not block core site/date analysis. The AI chat uses an optional online
+provider; the core app and manual controls remain fully usable when the AI
+is unavailable or the user is offline.
 
 ## Design system
 
@@ -135,8 +135,7 @@ the Hallmark convention of recording design direction in a versioned file.
 
 **Scenario inputs serialize to the URL:** sites, dates, constraints, selected
 view, and the inputs needed to reproduce a comparison. Do not put secrets,
-private notes, large blobs, or shared-room credentials in the URL. A live
-workspace is separate from a shareable scenario link.
+private notes, or large blobs in the URL.
 
 Follow the QuickMap shareable link pattern: `prjExtent`, `proj`, `stack`,
 `defs`-style encoded state. Users should be able to copy-paste a URL and
@@ -160,20 +159,24 @@ instant approximate answer, then refine in a Web Worker with a visible
 **Heavy work:** Runs in Web Workers from `packages/web`. `packages/core` has
 no DOM, no network, no global state, no `Date.now()`.
 
-## Optional AI and collaboration
+## AI chat
 
-- Treat AI as an optional operator of the app, not as the source of science
-  values. It may translate a request into a small, typed set of app actions and
-  explain results returned by the engine.
+The AI chat is the primary input method for the single-user app. It sits at
+the bottom of the screen and lets the user describe mission needs in natural
+language.
+
+- The AI translates requests into a small, typed set of app actions and
+  explains results returned by the engine. It never calculates scientific
+  values.
 - Show the structured request and proposed changes. Require the user to
-  approve changes to dates, sites, constraints, or the shared scenario.
+  approve changes to dates, sites, or constraints.
 - Keep actions independent of a particular AI vendor. Do not assume that a
   NASA AI service is available; confirm access and terms before connecting one.
-- Show who changed shared state. Treat AI actions as proposals, not as a human
-  decision. Provide undo/restore and a visible way to handle conflicting edits.
-- AI and live collaboration may require a network service, but neither may be
-  required to use the offline science workflow. Never expose provider keys in
-  browser code, URLs, or logs.
+- Treat AI actions as proposals until the user approves them. Provide undo
+  for approved changes.
+- The AI provider is optional. The offline science workflow and manual
+  controls must work without it. Never expose provider keys in browser code,
+  URLs, or logs.
 
 ## Signature visuals
 

@@ -89,7 +89,7 @@ results. No result should be claimed until the tests are implemented and run.
 - Report insufficient terrain coverage or resolution as unknown/limited, not as
 	a successful robustness result.
 
-### Optional AI assistant
+### AI chat
 
 - Test with a mocked provider; automated tests and CI must not require a live AI
 	service or send scenario data to an external provider.
@@ -99,13 +99,8 @@ results. No result should be claimed until the tests are implemented and run.
 	can only summarize values returned by the science engine.
 - Test that the UI exposes the structured request and the results used in its
 	explanation, including unknowns and unmet limits.
-
-### Optional live collaboration
-
-- Test access control, attribution of each change, concurrent edits, conflict
-  handling, undo/restore, reconnect behavior, and offline fallback.
-- Verify that private data and credentials are not placed in shareable URLs.
-- Record what scenario data the service stores and how long it is retained.
+- Verify that the chat panel is accessible via keyboard and that chat messages
+	have text alternatives.
 
 ### Product and usability claims
 

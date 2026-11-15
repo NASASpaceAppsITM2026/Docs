@@ -12,9 +12,9 @@ Distilled from the K-Dense Astronautical Engineer AGENTS.md profile for lunar la
 - [ ] No light/dark mode toggle, animations, or non-essential polish before core science validated
 
 ### Offline-first architecture
-- [ ] Core calculations do not require runtime calls to Horizons, NASA, QuickMap, or an AI provider
+- [ ] Core calculations do not require runtime calls to Horizons, NASA, or QuickMap
 - [ ] All ephemeris and terrain data precomputed and shipped as static assets
-- [ ] Core site/date workflow works offline; optional online features fail clearly without blocking it
+- [ ] Core site/date workflow works offline; AI provider failures do not block manual controls
 - [ ] Python pipeline used only at build-time (kernel download, Chebyshev fits, DEM processing), never at runtime
 
 ### Mission-planning relevance (judging priority #2)
@@ -37,10 +37,11 @@ Distilled from the K-Dense Astronautical Engineer AGENTS.md profile for lunar la
 - [ ] Every derived data file rebuildable from documented script + pinned inputs
 - [ ] `docs/VALIDATION.md` updated with before/after numbers for any science change
 
-### Optional AI and collaboration
+### AI chat
 - [ ] AI actions are allow-listed, visible, and require human approval before changing scenario state
 - [ ] AI explanations use values returned by the deterministic engine; no AI-generated science values
-- [ ] Provider and collaboration services are optional, with data handling and access controls documented
-- [ ] Shared changes have attribution, conflict handling, and undo/restore
+- [ ] AI provider is optional, with data handling and access controls documented
+- [ ] Chat panel is keyboard-accessible with text alternatives
+- [ ] Approved AI changes can be undone manually
 
 **If any check fails: do not approve. Fix or document in `docs/VALIDATION.md` before proceeding.**

@@ -30,16 +30,13 @@
 	for it. CSA and Artemis materials provide context, not ephemeris or terrain
 	calculations.
 
-### Step 6: Compare plans and share
-- Run the slip-window finder across the selected candidate sites, dates, and
-	visible mission limits.
+### Step 6: AI-assisted planning and share
+- Tell the AI what the mission needs, or set site, date, and constraints manually.
+- The AI proposes scenario changes, runs the slip-window finder across candidate
+	sites and dates, and explains the results.
 - Check landing-area robustness only when the landing area, sampling method,
 	and terrain resolution are stated.
-- Share a URL for a reproducible scenario. Use a live workspace only when an
-	explicitly enabled collaboration service is available.
-- An optional AI assistant may propose app actions and summarize computed
-	results. The user reviews changes; the deterministic engine supplies every
-	scientific value.
+- Share a URL for a reproducible scenario.
 
 ## Key Compatibility Gotchas
 - **Longitude:** Horizons east longitude (0–360°) matches QuickMap `isLongitude360=true` — no sign flip
@@ -52,7 +49,7 @@
 ## Optional online services
 
 The core app, scenario links, and deterministic calculations must remain useful
-without these services. Before adding an AI provider or collaboration backend,
-document what data leaves the browser, access controls, retention, cost, outage
-behavior, and how a user disables the feature. Never place service credentials
-in browser code or shared URLs.
+without an AI provider. Before adding an AI provider, document what data leaves
+the browser, access controls, retention, cost, outage behavior, and how a user
+disables the feature. Never place service credentials in browser code or shared
+URLs.

@@ -60,6 +60,7 @@
 | Deep-space palette from `DESIGN.md` | 1 hr | Colors applied |
 | Moon-centered 3D opening scene with Moon, Earth, Sun, and selected site | 4 hrs | Main app view, wired to mocked or validated core results |
 | Secondary map, coordinate entry, and saved-site selector | 2 hrs | Precise site selection stays synchronized with the 3D marker |
+| AI chat panel at bottom: input, action proposals, approve/dismiss | 2 hrs | Natural-language scenario control |
 | URL-serializable state (shareable link) | 1 hr | Copy-paste URL reproduces scenario |
 | "Verify in Horizons" action (generates exact query) | 1 hr | Button that outputs query string |
 | Snap clicks to DEM grid; display effective resolution | 1 hr | Honest uncertainty in UI |
@@ -101,16 +102,17 @@
 | Validated single-site Sun/Earth geometry and terrain-aware metrics | Full south-polar site catalog |
 | Moon-centered 3D scene with Moon, Earth, Sun, selected site, and a site-level horizon view | High-detail custom lander model or exact-scale three-body distances |
 | Slip-window finder across a bounded set of candidate sites and dates, using visible user limits | Landing-area robustness across a user-defined radius or landing ellipse; only after the point results are validated |
-| Power proxy, configurable direct-to-Earth visibility, and eclipse disc-overlap | AI assistant and live multi-person workspace |
-| Horizon mask from precomputed LOLA DEM | User accounts or a hosted collaboration backend |
-| URL shareable links that reproduce scenario inputs | Multi-day slip animation and real-time terrain editing |
+| Power proxy, configurable direct-to-Earth visibility, and eclipse disc-overlap | Multi-day slip animation and real-time terrain editing |
+| Horizon mask from precomputed LOLA DEM | CesiumJS geospatial precision |
+| AI chat panel: natural-language input for scenario changes | User accounts or a hosted backend |
+| URL shareable links that reproduce scenario inputs | Landing-area robustness across a user-defined radius or landing ellipse; only after the point results are validated |
 | "Verify in Horizons" action; no live Horizons calls required | CesiumJS geospatial precision |
 | Clear assumptions, limitations, and pass/fail/unknown results | Mutation testing and full QA suite |
 
-AI and live collaboration are not hackathon MVP requirements. If attempted
-later, keep them optional: AI proposes approved app actions and summarizes
-engine results; a person approves changes to a shared scenario. Never let the
-AI provide scientific calculations.
+The AI chat is a core MVP feature: it translates natural-language requests into
+scenario changes and explains results. It never calculates scientific values —
+every number comes from the deterministic engine. Manual controls remain
+available for fine-tuning.
 
 ---
 
@@ -141,7 +143,8 @@ AI provide scientific calculations.
 
 - Do not invent coordinates, dates, or mission facts — write `TODO(verify)` and ask
 - Do not loosen the `< 0.01°` tolerance to make tests pass
-- Do not require runtime network calls to Horizons, QuickMap, NASA, or an AI provider for core calculations
+- Do not require runtime network calls to Horizons, QuickMap, or NASA for core calculations
+- Do not let the AI calculate scientific values — every number comes from the deterministic engine
 - Do not spend time on light/dark mode toggle, animations, or non-essential polish
 - Do not present false precision (sub-meter claims from coarse DEM)
 - Do not claim that no competing tool offers a feature without checking its current workflow

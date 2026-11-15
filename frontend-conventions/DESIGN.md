@@ -60,10 +60,13 @@ Readable on a projector in a lit room and on mobile portrait.
   terrain colors; always include text alternatives.
 - **Decision results:** label outcomes as meeting, missing, or unknown; never
   rely on color alone to communicate a result or risk.
+- **AI chat panel:** sits at the bottom of the screen, full width. Shows the
+  user's message, the AI's interpreted request as a structured proposal with
+  proposed scenario changes, and clear approve and dismiss actions. The chat
+  history scrolls above the input area.
 - **AI proposals:** show the interpreted request and proposed scenario changes
-  before applying them; provide clear approve and dismiss actions.
-- **Shared workspaces:** attribute changes to a participant, show conflicts,
-  and make undo or restore discoverable.
+  before applying them; provide clear approve and dismiss actions. AI-generated
+  changes are always proposals until the user approves them.
 
 ## Motion
 
